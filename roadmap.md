@@ -6,3 +6,4 @@
 - [ ] Replace the provisional name later when the final store name is supplied (blocked: final name pending)
 - [ ] Gather the requested theme changes and edit the connected store theme
 - [x] Build the first connected storefront preview with real Shopify catalog loading
+- [x] Create the first Shopify product based on the supplied Flytec V080 reference page
