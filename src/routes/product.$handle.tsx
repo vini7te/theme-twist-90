@@ -13,7 +13,7 @@ export const Route = createFileRoute("/product/$handle")({
   },
   head: ({ loaderData, params }) => {
     const product = loaderData?.product;
-    const title = "Barca GPS para Pesca com Controle Remoto | NOME NOVO";
+    const title = "Barca GPS para Pesca com Controle Remoto | Belmyra";
     const description = "Barca GPS para transportar e liberar iscas com precisão, controle remoto, bateria de 20.000 mAh e dois compartimentos.";
     const image = product?.node.images.edges[0]?.node.url;
     const price = product?.node.priceRange.minVariantPrice;
