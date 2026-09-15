@@ -4,7 +4,7 @@ import {
   Anchor, ArrowDown, ArrowLeft, ArrowRight, BatteryCharging, Box, Check, ChevronRight,
   Compass, Crosshair, ExternalLink, Facebook, Gauge, Instagram, Lightbulb, Loader2,
   LockKeyhole, MapPin, Maximize2, Menu, MessageCircle, Minus, Navigation, PackageCheck,
-  Plus, Radio, RotateCcw, Satellite, ShieldCheck, ShoppingBag, Signal, Sparkles, Star,
+  PlayCircle, Plus, Radio, RotateCcw, Satellite, ShieldCheck, ShoppingBag, Signal, Sparkles, Star,
   Waves, Zap,
 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
@@ -182,6 +182,31 @@ export function PremiumProductPage({ product }: { product: ShopifyProduct }) {
         </section>
 
         <section id="funcionalidades" className="scroll-mt-20 border-y border-border bg-card py-20 md:py-28"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><SectionHeading eyebrow="Recursos essenciais" title="Tecnologia a serviço da sua estratégia." /><div className="mt-12 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-3">{features.map(({ icon: Icon, title, text }) => <article key={title} className="group bg-background p-7 transition-colors hover:bg-secondary"><Icon className="size-8 text-primary transition-transform group-hover:-translate-y-1" /><h3 className="mt-8 text-lg font-bold uppercase">{title}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{text}</p></article>)}</div></div></section>
+
+        <section className="border-b border-border py-20 md:py-28" aria-labelledby="video-produto-title">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-10 grid items-end gap-6 lg:grid-cols-[1fr_auto]">
+              <div className="max-w-3xl">
+                <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-primary"><PlayCircle className="size-4" /> Veja em ação</p>
+                <h2 id="video-produto-title" className="mt-4 text-3xl font-bold uppercase leading-tight md:text-5xl">Conheça cada detalhe da barca GPS.</h2>
+              </div>
+              <p className="max-w-sm text-sm leading-6 text-muted-foreground">Assista ao vídeo completo diretamente na página e veja o produto em funcionamento.</p>
+            </div>
+            <div className="overflow-hidden border border-border bg-card p-2 shadow-[0_24px_70px_-35px_oklch(0.54_0.17_244_/_0.45)] sm:p-4">
+              <div className="relative aspect-video overflow-hidden bg-secondary">
+                <iframe
+                  className="absolute inset-0 size-full"
+                  src="https://www.youtube-nocookie.com/embed/VIJnRvbbxNM?rel=0"
+                  title="Vídeo da barca GPS para pesca com controle remoto"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                />
+              </div>
+            </div>
+          </div>
+        </section>
 
         <section className="py-20 md:py-32"><div className="mx-auto grid max-w-7xl gap-14 px-4 sm:px-6 lg:grid-cols-2 lg:px-8"><div><SectionHeading eyebrow="Navegação inteligente" title="Seu ponto de pesca. Salvo e repetível." text="Uma leitura visual e ilustrativa de como os pontos podem orientar uma operação mais consistente." /><div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3">{["Distância", "Bateria", "Posição", "Direção", "Sinal", "Ponto ativo"].map((item, i) => <div key={item} className="border border-border bg-card p-4"><p className="text-xs uppercase text-muted-foreground">{item}</p><p className="mt-2 font-mono text-lg font-bold text-primary">{["486 m", "82%", "23° S", "NE", "Forte", "P03"][i]}</p></div>)}</div></div><div className="relative min-h-[420px] overflow-hidden border border-border bg-secondary p-8"><div className="absolute inset-0 opacity-30 [background-image:linear-gradient(var(--border)_1px,transparent_1px),linear-gradient(90deg,var(--border)_1px,transparent_1px)] [background-size:36px_36px]" /><div className="absolute inset-8 rounded-[45%] border border-primary/30 bg-primary/5" />{[15,32,50,68,84].map((left, i) => <div key={left} className="absolute" style={{ left: `${left}%`, top: `${[58,30,67,43,23][i]}%` }}><span className="relative grid size-9 place-items-center rounded-full border border-primary bg-background text-xs font-bold text-primary">{i + 1}</span><span className="mt-1 block whitespace-nowrap text-[10px] font-semibold">Ponto 0{i + 1}</span></div>)}<div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-2 border border-primary bg-background px-4 py-3 text-sm font-bold"><Navigation className="size-5 text-primary" /> EMBARCAÇÃO</div></div></div></section>
 
