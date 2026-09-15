@@ -4,7 +4,7 @@
 - [x] Receive and safely inspect the uploaded ZIP
 - [x] Replace visible old-store branding with the final name “Belmyra”
 - [x] Replace the provisional name after receiving the final store name
-- [ ] Gather the requested theme changes and edit the connected store theme
+- [ ] Convert the approved Belmyra storefront into an installable Shopify OS 2.0 theme ZIP
 - [x] Build the first connected storefront preview with real Shopify catalog loading
 - [x] Create the first Shopify product based on the supplied Flytec V080 reference page
 - [x] Redesign the product page as a premium, original, conversion-focused fishing storefront
