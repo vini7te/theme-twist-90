@@ -10,10 +10,10 @@ import { fetchProducts } from "@/lib/shopify";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
-    { title: "NOME NOVO | Tecnologia para explorar" },
-    { name: "description", content: "Conheça os produtos e novidades da NOME NOVO." },
-    { property: "og:title", content: "NOME NOVO | Tecnologia para explorar" },
-    { property: "og:description", content: "Conheça os produtos e novidades da NOME NOVO." },
+    { title: "Belmyra | Tecnologia para explorar" },
+    { name: "description", content: "Conheça os produtos e novidades da Belmyra." },
+    { property: "og:title", content: "Belmyra | Tecnologia para explorar" },
+    { property: "og:description", content: "Conheça os produtos e novidades da Belmyra." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary_large_image" },
   ] }),
@@ -28,7 +28,7 @@ function Index() {
       <header className="absolute inset-x-0 top-0 z-20 border-b border-primary-foreground/20 text-primary-foreground">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 md:px-10">
           <Button variant="ghost" size="icon" className="md:hidden" aria-label="Abrir menu"><Menu /></Button>
-          <a href="#inicio" className="text-xl font-bold uppercase tracking-[0.14em]">NOME NOVO</a>
+          <a href="#inicio" className="text-xl font-bold uppercase tracking-[0.14em]">Belmyra</a>
           <nav className="hidden items-center gap-8 text-sm md:flex"><a href="#inicio">Início</a><a href="#produtos">Produtos</a><a href="#sobre">Sobre</a></nav>
           <CartDrawer />
         </div>
@@ -51,9 +51,9 @@ function Index() {
           {isLoading ? <div className="grid min-h-64 place-items-center"><Loader2 className="animate-spin" /></div> : products.length ? <div className="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">{products.map((product) => <ProductCard key={product.node.id} product={product} />)}</div> : <div className="grid min-h-72 place-items-center rounded-md border border-dashed bg-secondary/40 px-6 text-center"><div><PackageOpen className="mx-auto mb-4 size-10 text-muted-foreground" /><h3 className="text-xl font-semibold">Nenhum produto encontrado</h3><p className="mt-2 max-w-md text-muted-foreground">{isError ? "Não foi possível carregar os produtos agora." : "Sua loja Shopify ainda não possui produtos cadastrados."}</p></div></div>}
         </section>
 
-        <section id="sobre" className="bg-secondary py-20 md:py-24"><div className="mx-auto grid max-w-7xl gap-8 px-5 md:grid-cols-[1fr_1.2fr] md:px-10"><p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">NOME NOVO</p><div><h2 className="text-3xl font-semibold md:text-5xl">Desempenho e confiança em cada detalhe.</h2><p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">Uma loja pensada para apresentar tecnologia de forma clara, moderna e preparada para vender.</p></div></div></section>
+        <section id="sobre" className="bg-secondary py-20 md:py-24"><div className="mx-auto grid max-w-7xl gap-8 px-5 md:grid-cols-[1fr_1.2fr] md:px-10"><p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">Belmyra</p><div><h2 className="text-3xl font-semibold md:text-5xl">Desempenho e confiança em cada detalhe.</h2><p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">Uma loja pensada para apresentar tecnologia de forma clara, moderna e preparada para vender.</p></div></div></section>
       </main>
-      <footer className="border-t px-5 py-8 md:px-10"><div className="mx-auto flex max-w-7xl flex-col justify-between gap-3 text-sm text-muted-foreground sm:flex-row"><span>© 2026 NOME NOVO</span><span>Loja conectada à Shopify</span></div></footer>
+      <footer className="border-t px-5 py-8 md:px-10"><div className="mx-auto flex max-w-7xl flex-col justify-between gap-3 text-sm text-muted-foreground sm:flex-row"><span>© 2026 Belmyra</span><span>Loja conectada à Shopify</span></div></footer>
     </div>
   );
 }

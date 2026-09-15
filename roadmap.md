@@ -2,8 +2,8 @@
 
 - [x] Connect the existing Shopify store at https://0utbsz-zy.myshopify.com/
 - [x] Receive and safely inspect the uploaded ZIP
-- [x] Replace visible old-store branding with provisional “NOME NOVO”
-- [ ] Replace the provisional name later when the final store name is supplied (blocked: final name pending)
+- [x] Replace visible old-store branding with the final name “Belmyra”
+- [x] Replace the provisional name after receiving the final store name
 - [ ] Gather the requested theme changes and edit the connected store theme
 - [x] Build the first connected storefront preview with real Shopify catalog loading
 - [x] Create the first Shopify product based on the supplied Flytec V080 reference page

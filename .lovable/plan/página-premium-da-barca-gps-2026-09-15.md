@@ -16,6 +16,6 @@ Transformar a página do produto atual em uma experiência premium, original e r
 
 ## Observações
 
-- O nome permanece provisoriamente como “NOME NOVO” até você informar a marca definitiva.
+- O nome definitivo da marca é “Belmyra”.
 - WhatsApp, e-mail, redes sociais e textos jurídicos ficarão como campos claramente pendentes, sem inventar contatos.
 - O conteúdo será original; as fotos atualmente cadastradas na sua própria loja continuarão sendo utilizadas.
