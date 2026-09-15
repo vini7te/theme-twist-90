@@ -58,7 +58,7 @@ export function CartDrawer() {
               </div>
               <div className="border-t pt-5">
                 <div className="mb-4 flex justify-between text-lg font-semibold"><span>Total</span><span>{items[0]?.price.currencyCode} {total.toFixed(2)}</span></div>
-                <Button className="w-full" size="lg" disabled={!checkoutUrl || isLoading || isSyncing} onClick={() => { if (checkoutUrl) { trackCommerceEvent("begin_checkout", { value: total, currency: items[0]?.price.currencyCode, quantity: count }); window.open(checkoutUrl, "_blank"); } setOpen(false); }}>
+                <Button className="w-full" size="lg" disabled={!checkoutUrl || isLoading || isSyncing} onClick={() => { if (checkoutUrl) { const currency = items[0]?.price.currencyCode; trackCommerceEvent("begin_checkout", { value: total, ...(currency ? { currency } : {}), quantity: count }); window.open(checkoutUrl, "_blank"); } setOpen(false); }}>
                   {isLoading || isSyncing ? <Loader2 className="animate-spin" /> : <><ExternalLink /> Finalizar compra</>}
                 </Button>
               </div>

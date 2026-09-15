@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import type { LucideIcon } from "lucide-react";
 import {
   Anchor, ArrowDown, ArrowLeft, ArrowRight, BatteryCharging, Box, Check, ChevronRight,
   Compass, Crosshair, ExternalLink, Facebook, Gauge, Instagram, Lightbulb, Loader2,
@@ -56,6 +57,19 @@ const specs = [
 ] as const;
 
 const packageItems = ["Embarcação", "Controle remoto", "Bateria", "Carregador", "Antenas", "Hélice sobressalente", "Cabos", "Acessórios", "Bolsa de transporte", "Manual"];
+
+const benefitItems: Array<[LucideIcon, string, string]> = [
+  [Crosshair, "GPS de precisão", "Navegação e localização dos pontos."],
+  [BatteryCharging, "Longa autonomia", "Alta capacidade para sessões prolongadas."],
+  [Box, "Grande capacidade", "Compartimentos para transporte de iscas."],
+  [Radio, "Controle remoto", "Operação simples e intuitiva à distância."],
+];
+
+const trustItems: Array<[LucideIcon, string, string]> = [
+  [LockKeyhole, "Compra segura", "Pagamento protegido."],
+  [PackageCheck, "Envio seguro", "Produto embalado para transporte."],
+  [ShieldCheck, "Suporte", "Atendimento antes e depois da compra."],
+];
 
 function formatMoney(amount: string, currencyCode: string) {
   return new Intl.NumberFormat("pt-BR", { style: "currency", currency: currencyCode }).format(Number(amount));
@@ -157,9 +171,7 @@ export function PremiumProductPage({ product }: { product: ShopifyProduct }) {
           </div>
         </section>
 
-        <section className="border-b border-border bg-card"><div className="mx-auto grid max-w-7xl sm:grid-cols-2 lg:grid-cols-4">{[
-          [Crosshair, "GPS de precisão", "Navegação e localização dos pontos."], [BatteryCharging, "Longa autonomia", "Alta capacidade para sessões prolongadas."], [Box, "Grande capacidade", "Compartimentos para transporte de iscas."], [Radio, "Controle remoto", "Operação simples e intuitiva à distância."],
-        ].map(([Icon, title, text], index) => <div key={String(title)} className={`p-6 lg:p-8 ${index < 3 ? "border-b border-border sm:border-r lg:border-b-0" : ""}`}><Icon className="size-7 text-primary" /><h2 className="mt-4 text-sm font-bold uppercase">{String(title)}</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">{String(text)}</p></div>)}</div></section>
+        <section className="border-b border-border bg-card"><div className="mx-auto grid max-w-7xl sm:grid-cols-2 lg:grid-cols-4">{benefitItems.map(([Icon, title, text], index) => <div key={title} className={`p-6 lg:p-8 ${index < 3 ? "border-b border-border sm:border-r lg:border-b-0" : ""}`}><Icon className="size-7 text-primary" /><h2 className="mt-4 text-sm font-bold uppercase">{title}</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">{text}</p></div>)}</div></section>
 
         <section className="relative overflow-hidden py-20 md:py-32">
           <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[.85fr_1.15fr] lg:px-8">
@@ -190,7 +202,7 @@ export function PremiumProductPage({ product }: { product: ShopifyProduct }) {
 
         <section className="relative overflow-hidden border-y border-border bg-card py-20 md:py-28"><div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-[1fr_.9fr] lg:px-8"><div><p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">Sua próxima estratégia começa aqui</p><h2 className="mt-4 text-4xl font-extrabold uppercase leading-tight md:text-6xl">Pronto para levar sua pesca para outro nível?</h2><p className="mt-5 max-w-xl text-lg text-muted-foreground">Tenha mais precisão, controle e praticidade em cada sessão.</p><div className="mt-8 flex flex-wrap items-center gap-5"><span className="text-4xl font-extrabold text-primary">{formatMoney(price.amount, price.currencyCode)}</span><Button size="lg" className="h-14 px-8 uppercase" onClick={() => void handleBuy()} disabled={!variant || adding}>{adding ? <Loader2 className="animate-spin" /> : <ShoppingBag />} Comprar agora</Button></div></div><div className="aspect-[4/3] overflow-hidden border border-border bg-background">{images[2] && <img src={images[2].url} alt={images[2].altText ?? productTitle} className="h-full w-full object-contain" loading="lazy" />}</div></div></section>
 
-        <section className="py-16"><div className="mx-auto grid max-w-7xl gap-px bg-border px-4 sm:px-6 md:grid-cols-3 lg:px-8">{[[LockKeyhole, "Compra segura", "Pagamento protegido."], [PackageCheck, "Envio seguro", "Produto embalado para transporte."], [ShieldCheck, "Suporte", "Atendimento antes e depois da compra."]].map(([Icon, title, text]) => <div key={String(title)} className="bg-background p-7"><Icon className="size-7 text-primary" /><h3 className="mt-5 font-bold uppercase">{String(title)}</h3><p className="mt-2 text-sm text-muted-foreground">{String(text)}</p></div>)}</div></section>
+        <section className="py-16"><div className="mx-auto grid max-w-7xl gap-px bg-border px-4 sm:px-6 md:grid-cols-3 lg:px-8">{trustItems.map(([Icon, title, text]) => <div key={title} className="bg-background p-7"><Icon className="size-7 text-primary" /><h3 className="mt-5 font-bold uppercase">{title}</h3><p className="mt-2 text-sm text-muted-foreground">{text}</p></div>)}</div></section>
       </main>
 
       <footer id="contato" className="scroll-mt-20 border-t border-border bg-card pb-24 pt-16 md:pb-10"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><div className="grid gap-12 md:grid-cols-4"><div className="md:col-span-1"><BrandMark /><p className="mt-5 text-sm leading-6 text-muted-foreground">Tecnologia e controle para uma pesca mais estratégica.</p></div><div><h3 className="text-xs font-bold uppercase text-primary">Navegação</h3><div className="mt-5 flex flex-col gap-3 text-sm text-muted-foreground">{navItems.slice(0, 5).map(([label, id]) => <a key={id} href={`#${id}`}>{label}</a>)}</div></div><div><h3 className="text-xs font-bold uppercase text-primary">Atendimento</h3><p className="mt-5 text-sm leading-6 text-muted-foreground">WhatsApp e e-mail serão publicados após a confirmação dos contatos oficiais.</p><div className="mt-5 flex gap-2"><Button variant="outline" size="icon" disabled aria-label="Instagram pendente"><Instagram /></Button><Button variant="outline" size="icon" disabled aria-label="Facebook pendente"><Facebook /></Button><Button variant="outline" size="icon" disabled aria-label="WhatsApp pendente"><MessageCircle /></Button></div></div><div><h3 className="text-xs font-bold uppercase text-primary">Políticas</h3><div className="mt-5 flex flex-col gap-3 text-sm text-muted-foreground"><span>Política de troca</span><span>Garantia</span><span>Prazo de envio</span><span>Termos de compra</span><span>Política de privacidade</span></div></div></div><div className="mt-14 flex flex-col justify-between gap-3 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row"><span>© 2026 NOME NOVO. Marca provisória.</span><span>Pagamento processado com segurança pela Shopify.</span></div></div></footer>
