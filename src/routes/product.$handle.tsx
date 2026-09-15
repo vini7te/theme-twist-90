@@ -1,41 +1,56 @@
-import { useQuery } from "@tanstack/react-query";
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, Loader2, ShoppingBag } from "lucide-react";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PremiumProductPage } from "@/components/store/premium-product-page";
 import { fetchProducts } from "@/lib/shopify";
-import { useCartStore } from "@/stores/cart-store";
 
 export const Route = createFileRoute("/product/$handle")({
-  head: ({ params }) => ({ meta: [
-    { title: `${params.handle} | NOME NOVO` },
-    { name: "description", content: "Detalhes do produto na NOME NOVO." },
-    { property: "og:title", content: `${params.handle} | NOME NOVO` },
-    { property: "og:description", content: "Detalhes do produto na NOME NOVO." },
-    { property: "og:type", content: "website" },
-    { name: "twitter:card", content: "summary_large_image" },
-  ] }),
+  loader: async ({ params }) => {
+    const products = await fetchProducts();
+    const product = products.find((entry) => entry.node.handle === params.handle);
+    if (!product) throw notFound();
+    return { product };
+  },
+  head: ({ loaderData, params }) => {
+    const product = loaderData?.product;
+    const title = "Barca GPS para Pesca com Controle Remoto | NOME NOVO";
+    const description = "Barca GPS para transportar e liberar iscas com precisão, controle remoto, bateria de 20.000 mAh e dois compartimentos.";
+    const image = product?.node.images.edges[0]?.node.url;
+    const price = product?.node.priceRange.minVariantPrice;
+    return {
+      meta: [
+        { title }, { name: "description", content: description },
+        { property: "og:title", content: title }, { property: "og:description", content: description },
+        { property: "og:type", content: "product" }, { property: "og:url", content: `/product/${params.handle}` },
+        { name: "twitter:card", content: "summary_large_image" },
+        ...(image ? [{ property: "og:image", content: image }, { name: "twitter:image", content: image }] : []),
+      ],
+      links: [{ rel: "canonical", href: `/product/${params.handle}` }],
+      scripts: product && price ? [
+        { type: "application/ld+json", children: JSON.stringify({
+          "@context": "https://schema.org", "@type": "Product", name: "Barca GPS para pesca com controle remoto",
+          description, image: product.node.images.edges.map(({ node }) => node.url), sku: product.node.id,
+          offers: { "@type": "Offer", price: price.amount, priceCurrency: price.currencyCode, availability: product.node.variants.edges.some(({ node }) => node.availableForSale) ? "https://schema.org/InStock" : "https://schema.org/OutOfStock", url: `/product/${params.handle}` },
+        }) },
+        { type: "application/ld+json", children: JSON.stringify({
+          "@context": "https://schema.org", "@type": "FAQPage", mainEntity: [
+            ["Qual é o alcance da embarcação?", "O alcance informado é de até 800 metros, variando conforme as condições."],
+            ["Quanto tempo dura a bateria?", "A autonomia estimada é de 2 a 4 horas, conforme carga e condições de uso."],
+            ["Qual é a capacidade de isca?", "A capacidade total informada é de até 3 kg em dois compartimentos."],
+          ].map(([name, text]) => ({ "@type": "Question", name, acceptedAnswer: { "@type": "Answer", text } })),
+        }) },
+      ] : [],
+    };
+  },
+  notFoundComponent: ProductNotFound,
   component: ProductPage,
 });
 
 function ProductPage() {
-  const { handle } = Route.useParams();
-  const { data: products = [], isLoading } = useQuery({ queryKey: ["shopify-products"], queryFn: fetchProducts });
-  const addItem = useCartStore((state) => state.addItem);
-  const adding = useCartStore((state) => state.isLoading);
-  const product = products.find((entry) => entry.node.handle === handle);
-  const variant = product?.node.variants.edges.find(({ node }) => node.availableForSale)?.node;
-  if (isLoading) return <main className="grid min-h-screen place-items-center"><Loader2 className="animate-spin" /></main>;
-  if (!product) return <main className="grid min-h-screen place-items-center px-6 text-center"><div><h1 className="text-3xl font-semibold">Produto não encontrado</h1><Button asChild className="mt-6"><Link to="/">Voltar à loja</Link></Button></div></main>;
-  const image = product.node.images.edges[0]?.node;
-  return (
-    <main className="min-h-screen bg-background px-5 py-8 md:px-10">
-      <div className="mx-auto max-w-6xl">
-        <Button asChild variant="ghost"><Link to="/"><ArrowLeft /> Voltar</Link></Button>
-        <div className="mt-8 grid gap-10 md:grid-cols-2">
-          <div className="aspect-square overflow-hidden rounded-md bg-secondary">{image && <img className="h-full w-full object-cover" src={image.url} alt={image.altText ?? product.node.title} />}</div>
-          <div className="self-center"><h1 className="text-4xl font-semibold">{product.node.title}</h1><p className="mt-4 text-2xl">{product.node.priceRange.minVariantPrice.currencyCode} {Number(product.node.priceRange.minVariantPrice.amount).toFixed(2)}</p><p className="mt-6 leading-7 text-muted-foreground">{product.node.description}</p><Button size="lg" className="mt-8" disabled={!variant || adding} onClick={() => variant && void addItem({ product, variantId: variant.id, variantTitle: variant.title, price: variant.price, quantity: 1, selectedOptions: variant.selectedOptions })}>{adding ? <Loader2 className="animate-spin" /> : <ShoppingBag />} Adicionar à sacola</Button></div>
-        </div>
-      </div>
-    </main>
-  );
+  const { product } = Route.useLoaderData();
+  return <PremiumProductPage product={product} />;
+}
+
+function ProductNotFound() {
+  return <main className="grid min-h-screen place-items-center bg-background px-6 text-center"><div><h1 className="text-3xl font-bold">Produto não encontrado</h1><Button asChild className="mt-6"><Link to="/"><ArrowLeft /> Voltar à loja</Link></Button></div></main>;
 }
