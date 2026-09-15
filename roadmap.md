@@ -13,3 +13,4 @@
 - [x] Add privacy-safe analytics hooks for product views, cart additions, and checkout starts
 - [ ] Activate Google Analytics, Meta Pixel, and purchase confirmation tracking (blocked: measurement IDs and final checkout callback setup pending)
 - [ ] Add the no-code content administration area (blocked: authenticated owner account and final content model pending)
+- [ ] Replace the dark storefront palette with a light, modern palette selected by the owner
