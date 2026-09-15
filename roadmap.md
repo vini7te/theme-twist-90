@@ -7,7 +7,7 @@
 - [ ] Gather the requested theme changes and edit the connected store theme
 - [x] Build the first connected storefront preview with real Shopify catalog loading
 - [x] Create the first Shopify product based on the supplied Flytec V080 reference page
-- [ ] Redesign the product page as a premium, original, conversion-focused fishing storefront
-- [ ] Add mobile navigation, gallery, persistent purchase controls, technical sections, FAQ, and trust content
-- [ ] Connect product-page interactions to the real Shopify cart, price, availability, and checkout
+- [x] Redesign the product page as a premium, original, conversion-focused fishing storefront
+- [x] Add mobile navigation, gallery, persistent purchase controls, technical sections, FAQ, and trust content
+- [x] Connect product-page interactions to the real Shopify cart, price, availability, and checkout
 - [ ] Add privacy-safe analytics hooks for CTA, checkout, and purchase events (blocked until analytics IDs are connected)
