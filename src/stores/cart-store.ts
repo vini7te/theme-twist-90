@@ -62,7 +62,7 @@ export const useCartStore = create<CartState>()(
             const payload = data?.cartCreate;
             const cart = payload?.cart;
             const lineId = cart?.lines?.edges[0]?.node.id;
-            if (!cart?.id || !cart.checkoutUrl || !lineId || payload.userErrors?.length) return;
+            if (!cart?.id || !cart.checkoutUrl || !lineId || payload?.userErrors?.length) return;
             set({ cartId: cart.id, checkoutUrl: formatCheckoutUrl(cart.checkoutUrl), items: [{ ...item, lineId }] });
           } else if (existing?.lineId) {
             const quantity = existing.quantity + item.quantity;
