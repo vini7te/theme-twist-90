@@ -14,4 +14,4 @@
 - [ ] Activate Google Analytics, Meta Pixel, and purchase confirmation tracking (blocked: measurement IDs and final checkout callback setup pending)
 - [ ] Add the no-code content administration area (blocked: authenticated owner account and final content model pending)
 - [x] Replace the dark storefront palette with the selected light Coastal Mist palette
-- [ ] Add the supplied YouTube product video as a prominent in-page player
+- [x] Add the supplied YouTube product video as a prominent in-page player
