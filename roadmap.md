@@ -10,4 +10,6 @@
 - [x] Redesign the product page as a premium, original, conversion-focused fishing storefront
 - [x] Add mobile navigation, gallery, persistent purchase controls, technical sections, FAQ, and trust content
 - [x] Connect product-page interactions to the real Shopify cart, price, availability, and checkout
-- [ ] Add privacy-safe analytics hooks for CTA, checkout, and purchase events (blocked until analytics IDs are connected)
+- [x] Add privacy-safe analytics hooks for product views, cart additions, and checkout starts
+- [ ] Activate Google Analytics, Meta Pixel, and purchase confirmation tracking (blocked: measurement IDs and final checkout callback setup pending)
+- [ ] Add the no-code content administration area (blocked: authenticated owner account and final content model pending)

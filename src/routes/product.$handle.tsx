@@ -26,11 +26,20 @@ export const Route = createFileRoute("/product/$handle")({
         ...(image ? [{ property: "og:image", content: image }, { name: "twitter:image", content: image }] : []),
       ],
       links: [{ rel: "canonical", href: `/product/${params.handle}` }],
-      scripts: product && price ? [{ type: "application/ld+json", children: JSON.stringify({
-        "@context": "https://schema.org", "@type": "Product", name: "Barca GPS para pesca com controle remoto",
-        description, image: product.node.images.edges.map(({ node }) => node.url), sku: product.node.id,
-        offers: { "@type": "Offer", price: price.amount, priceCurrency: price.currencyCode, availability: product.node.variants.edges.some(({ node }) => node.availableForSale) ? "https://schema.org/InStock" : "https://schema.org/OutOfStock", url: `/product/${params.handle}` },
-      }) }] : [],
+      scripts: product && price ? [
+        { type: "application/ld+json", children: JSON.stringify({
+          "@context": "https://schema.org", "@type": "Product", name: "Barca GPS para pesca com controle remoto",
+          description, image: product.node.images.edges.map(({ node }) => node.url), sku: product.node.id,
+          offers: { "@type": "Offer", price: price.amount, priceCurrency: price.currencyCode, availability: product.node.variants.edges.some(({ node }) => node.availableForSale) ? "https://schema.org/InStock" : "https://schema.org/OutOfStock", url: `/product/${params.handle}` },
+        }) },
+        { type: "application/ld+json", children: JSON.stringify({
+          "@context": "https://schema.org", "@type": "FAQPage", mainEntity: [
+            ["Qual é o alcance da embarcação?", "O alcance informado é de até 800 metros, variando conforme as condições."],
+            ["Quanto tempo dura a bateria?", "A autonomia estimada é de 2 a 4 horas, conforme carga e condições de uso."],
+            ["Qual é a capacidade de isca?", "A capacidade total informada é de até 3 kg em dois compartimentos."],
+          ].map(([name, text]) => ({ "@type": "Question", name, acceptedAnswer: { "@type": "Answer", text } })),
+        }) },
+      ] : [],
     };
   },
   notFoundComponent: ProductNotFound,

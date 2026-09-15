@@ -89,6 +89,7 @@ export function PremiumProductPage({ product }: { product: ShopifyProduct }) {
   const [lightbox, setLightbox] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [adding, setAdding] = useState(false);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
   const addItem = useCartStore((state) => state.addItem);
   const variant = product.node.variants.edges.find(({ node }) => node.availableForSale)?.node;
   const price = variant?.price ?? product.node.priceRange.minVariantPrice;
@@ -147,7 +148,7 @@ export function PremiumProductPage({ product }: { product: ShopifyProduct }) {
         <section id="produto" className="scroll-mt-20 border-b border-border pt-24 md:pt-32">
           <div className="mx-auto grid max-w-7xl gap-10 px-4 pb-14 sm:px-6 md:pb-24 lg:grid-cols-[1.08fr_.92fr] lg:gap-16 lg:px-8">
             <div className="min-w-0">
-              <div className="group relative aspect-[4/3] overflow-hidden border border-border bg-card">
+              <div className="group relative aspect-[4/3] overflow-hidden border border-border bg-card" onTouchStart={(event) => setTouchStart(event.touches[0]?.clientX ?? null)} onTouchEnd={(event) => { const end = event.changedTouches[0]?.clientX; if (touchStart !== null && end !== undefined && Math.abs(touchStart - end) > 45) changeImage(touchStart > end ? 1 : -1); setTouchStart(null); }}>
                 {currentImage ? <img src={currentImage.url} alt={currentImage.altText ?? productTitle} className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-[1.025]" fetchPriority="high" /> : <div className="grid h-full place-items-center text-muted-foreground">Imagem não disponível</div>}
                 {gallery.length > 1 && <><Button variant="secondary" size="icon" className="absolute left-3 top-1/2 -translate-y-1/2" onClick={() => changeImage(-1)} aria-label="Imagem anterior"><ArrowLeft /></Button><Button variant="secondary" size="icon" className="absolute right-3 top-1/2 -translate-y-1/2" onClick={() => changeImage(1)} aria-label="Próxima imagem"><ArrowRight /></Button></>}
                 <Button variant="secondary" size="icon" className="absolute right-3 top-3" onClick={() => setLightbox(true)} aria-label="Ampliar imagem"><Maximize2 /></Button>
@@ -209,7 +210,7 @@ export function PremiumProductPage({ product }: { product: ShopifyProduct }) {
 
       <div className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-t border-border bg-background/95 px-4 py-3 backdrop-blur md:hidden"><div className="min-w-0"><p className="truncate text-xs text-muted-foreground">Barca GPS</p><p className="font-bold text-primary">{formatMoney(price.amount, price.currencyCode)}</p></div><Button className="shrink-0 uppercase" onClick={() => void handleBuy()} disabled={!variant || adding}>{adding ? <Loader2 className="animate-spin" /> : <ShoppingBag />} Comprar agora</Button></div>
 
-      <Dialog open={lightbox} onOpenChange={setLightbox}><DialogContent className="h-[92vh] max-w-[94vw] border-border bg-background p-3"><DialogTitle className="sr-only">Galeria ampliada do produto</DialogTitle><DialogDescription className="sr-only">Use as setas para navegar pelas imagens.</DialogDescription><div className="relative grid h-full place-items-center overflow-hidden bg-card">{currentImage && <img src={currentImage.url} alt={currentImage.altText ?? productTitle} className="max-h-full max-w-full object-contain" />}<Button variant="secondary" size="icon" className="absolute left-3 top-1/2 -translate-y-1/2" onClick={() => changeImage(-1)} aria-label="Imagem anterior"><ArrowLeft /></Button><Button variant="secondary" size="icon" className="absolute right-3 top-1/2 -translate-y-1/2" onClick={() => changeImage(1)} aria-label="Próxima imagem"><ArrowRight /></Button></div></DialogContent></Dialog>
+      <Dialog open={lightbox} onOpenChange={setLightbox}><DialogContent className="h-[92vh] max-w-[94vw] border-border bg-background p-3"><DialogTitle className="sr-only">Galeria ampliada do produto</DialogTitle><DialogDescription className="sr-only">Use as setas ou deslize para navegar pelas imagens.</DialogDescription><div className="relative grid h-full place-items-center overflow-hidden bg-card" onTouchStart={(event) => setTouchStart(event.touches[0]?.clientX ?? null)} onTouchEnd={(event) => { const end = event.changedTouches[0]?.clientX; if (touchStart !== null && end !== undefined && Math.abs(touchStart - end) > 45) changeImage(touchStart > end ? 1 : -1); setTouchStart(null); }}>{currentImage && <img src={currentImage.url} alt={currentImage.altText ?? productTitle} className="max-h-full max-w-full object-contain" />}<Button variant="secondary" size="icon" className="absolute left-3 top-1/2 -translate-y-1/2" onClick={() => changeImage(-1)} aria-label="Imagem anterior"><ArrowLeft /></Button><Button variant="secondary" size="icon" className="absolute right-3 top-1/2 -translate-y-1/2" onClick={() => changeImage(1)} aria-label="Próxima imagem"><ArrowRight /></Button></div></DialogContent></Dialog>
     </div>
   );
 }
